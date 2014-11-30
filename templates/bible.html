@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container">
+    <h2>Bible (KJV)</h2>
+    Enter Scripture or Hymn
+    <form action="{{url_for(endpoint if endpoint else "Bible")}}" method="post">
+        <input tabindex="1" type="text" name="expression" />
+        <input type="submit" value="Print" class="btn btn-primary"/>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% with books = messages[0] %}
+        <div class="well">
+            <div class="row" style="margin: 50px;margin-right: 100px; font-size:150%;">
+                <div class="col-md-12">
+                    {% for book in books %}
+                        <div class="book" style="line-height: 1.4; font-size: 175%;">
+                      Book: {{book}}
+                    {% for chapter in books[book]%}
+                      <div class="chapter">
+                      Chapter: {{chapter}}
+                    {% with verses = books[book][chapter] %}
+                    {% for verse in verses %}
+                        <div class="verse">
+                        Verse: {{verse[0]}}
+                        <div style="line-height: 1.4; font-size: 145%;" class="verse-text">{{verse[1]}}</div>
+                        </div>
+                    {% endfor %}
+                    {% endwith %}
+                    </div>
+                    {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endwith %}
+    {% endwith %}
+    </div>
+{% endblock %}
+{% block nav %}
+<!--<li><a href="{{url_for('Bible')}}">Bible</a></li>-->
+{% endblock %}
