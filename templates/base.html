@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>God.works</title>
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" type="text/css" href="/static/style.css" />
+        <script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+    </head>
+    <body>
+            <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container">
+                    <ul class="nav navbar-nav">    
+                        {% block nav %}{% endblock %}
+                        <li><a href="{{url_for('Bible')}}">Bible</a></li>
+                        <li><a href="{{url_for('hymns')}}">Hymns</a></li>
+                    </ul>
+                    </div>
+            </nav>
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div> 
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="container">
+		{% with message = get_flashed_messages()[0] %}
+		<div class="message">
+			{{ message }}
+		</div>
+		{% endwith %}
+	</div>
+{% endblock %}
