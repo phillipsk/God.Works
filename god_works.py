@@ -60,7 +60,7 @@ class Bible(flask.views.MethodView):
 
 class hymns(flask.views.MethodView):
     def get(self):
-        return flask.render_template('bible.html', endpoint="hymns")
+        return flask.render_template('bible.html', endpoint='hymns')
     def post(self):
         result = (flask.request.form['expression'])
         flask.flash(result)
