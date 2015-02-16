@@ -8,6 +8,7 @@ import re
 from jinja2 import evalcontextfilter, Markup, escape
 from hymns import *
 
+
 def parse_rough_draft(json_dict_output):
     books = json_dict_output[u'book']
     result_dict={}
@@ -50,6 +51,7 @@ def user_bible(query):
     return parse_rough_draft(json_dict_output)
 
 
+
 ####
 
 
@@ -80,6 +82,7 @@ def nl2br(eval_ctx, value):
     if eval_ctx.autoescape:
         result = Markup(result)
     return result
+
 
 class Bible(flask.views.MethodView):
     def get(self):
@@ -115,6 +118,19 @@ app.add_url_rule('/hymns/',
                  methods=['GET', 'POST'])
 
 
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
+"""
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    if port == 5000:
+        app.debug = True
+    app.run(host='0.0.0.0', port=port)
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.debug = True
+    app.run(host='0.0.0.0', port=port)
+"""
