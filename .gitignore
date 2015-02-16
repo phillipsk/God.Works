@@ -64,3 +64,7 @@ venv/
 
 #Heroku
 Procfile
+
+#archive
+/backup
+
