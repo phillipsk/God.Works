@@ -3,8 +3,15 @@
 	<div class="container">
 		{% with message = get_flashed_messages()[0] %}
 		<div class="message">
-			{{ message }}
+
+		{#<!--	{{ message|nl2br| }} --> #}
+		
+		{% autoescape false %}
+    		{{ message|nl2br }}
+		{% endautoescape %}
+		
 		</div>
 		{% endwith %}
 	</div>
 {% endblock %}
+

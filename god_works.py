@@ -4,6 +4,9 @@ import functools
 import requests
 import json
 import pprint
+import re
+from jinja2 import evalcontextfilter, Markup, escape
+from hymns import *
 
 def parse_rough_draft(json_dict_output):
     books = json_dict_output[u'book']
@@ -46,8 +49,37 @@ def user_bible(query):
 
     return parse_rough_draft(json_dict_output)
 
+
+####
+
+
+### reference on different .py file ??
+
+#hymns.hymn001
+
+def hymn001():
+    content = """
+    This is a text with many
+    new lines, then we can write long texts 
+    here
+    """
+    
+
+    return content
+
+
 app = flask.Flask(__name__)
 app.secret_key = "password"
+
+_paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+@app.template_filter()
+@evalcontextfilter
+def nl2br(eval_ctx, value):
+    result = u'\n\n'.join(u'<p>%s</p>' % p.replace('\n', '<br>\n') \
+        for p in _paragraph_re.split(value))
+    if eval_ctx.autoescape:
+        result = Markup(result)
+    return result
 
 class Bible(flask.views.MethodView):
     def get(self):
@@ -63,7 +95,15 @@ class hymns(flask.views.MethodView):
         return flask.render_template('bible.html', endpoint="hymns")
     def post(self):
         result = (flask.request.form['expression'])
-        flask.flash(result)
+
+        message = None
+
+        if result == "hymn001":
+            message = hymn001()
+        elif result == "xyz":
+            message = surr()
+
+        flask.flash(message)
         return flask.render_template("hymns.html")
 
 app.add_url_rule('/',
